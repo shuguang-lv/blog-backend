@@ -1,5 +1,4 @@
 import { Injectable, OnModuleInit, Logger } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { ChatGPTQuery } from './app.dto';
 import { Response } from 'express';
 
@@ -13,10 +12,8 @@ export class AppService implements OnModuleInit {
   chatgpt: any;
   private readonly logger = new Logger(AppService.name);
 
-  constructor(private configService: ConfigService) {}
-
   async onModuleInit() {
-    const openaiApiKey = this.configService.get<string>('OPENAI_API_KEY');
+    const openaiApiKey = process.env.OPENAI_API_KEY;
     if (!openaiApiKey) {
       throw new Error('OPENAI_API_KEY missing');
     }
