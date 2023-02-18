@@ -14,7 +14,7 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Get('/sendMessage')
+  @Get('/openai')
   async sendMessage(
     @Query() chatGPTQuery: ChatGPTQuery,
     @Res() res: Response,
