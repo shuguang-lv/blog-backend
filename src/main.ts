@@ -8,10 +8,7 @@ import helmet from 'helmet';
 //@ts-ignore
 globalThis.self = globalThis;
 import 'unfetch/polyfill';
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-// globalThis.fetch = fetch;
+globalThis.XMLHttpRequest = require('xhr2');
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });

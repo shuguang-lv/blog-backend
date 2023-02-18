@@ -38,6 +38,7 @@ specifiers:
   unfetch: ^5.0.0
   webpack: ^5.75.0
   webpack-node-externals: ^3.0.0
+  xhr2: ^0.2.1
 
 dependencies:
   '@nestjs/common': 9.3.9_welcnyot5bzd5wa2aovbkxpi4i
@@ -53,6 +54,7 @@ dependencies:
   reflect-metadata: 0.1.13
   rxjs: 7.8.0
   unfetch: 5.0.0
+  xhr2: 0.2.1
 
 devDependencies:
   '@nestjs/cli': 9.2.0
@@ -5086,6 +5088,11 @@ packages:
       imurmurhash: 0.1.4
       signal-exit: 3.0.7
     dev: true
+
+  /xhr2/0.2.1:
+    resolution: {integrity: sha512-sID0rrVCqkVNUn8t6xuv9+6FViXjUVXq8H5rWOH2rz9fDNQEd4g0EA2XlcEdJXRz5BMEn4O1pJFdT+z4YHhoWw==}
+    engines: {node: '>= 6'}
+    dev: false
 
   /xtend/4.0.2:
     resolution: {integrity: sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==}
