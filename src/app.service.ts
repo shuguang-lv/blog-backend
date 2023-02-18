@@ -51,7 +51,6 @@ export class AppService implements OnModuleInit {
         onProgress: (partialResponse) => res.write(partialResponse.text),
       });
     }
-    res.write(response.text ?? '');
     res.end();
   }
 }
