@@ -7,6 +7,12 @@ export const importDynamic = new Function(
   'return import(modulePath)',
 );
 
+export interface ChatResponse {
+  text: string;
+  id: string;
+  conversationId: string;
+}
+
 @Injectable()
 export class AppService implements OnModuleInit {
   chatgpt: any;
@@ -37,18 +43,20 @@ export class AppService implements OnModuleInit {
   async sendMessage(query: ChatGPTQuery, res: Response) {
     const { message, conversationId, parentMessageId } = query;
     this.logger.log(`Send Message ${message}`);
-    let data;
+    let data: ChatResponse;
     if (!conversationId) {
       data = await this.chatgpt.sendMessage(message, {
         timeoutMs: 2 * 60 * 1000,
-        onProgress: (partialResponse) => res.write(partialResponse.text),
+        onProgress: (partialResponse: ChatResponse) =>
+          res.write(partialResponse.text),
       });
     } else {
       data = await this.chatgpt.sendMessage(message, {
         conversationId,
         parentMessageId,
         timeoutMs: 2 * 60 * 1000,
-        onProgress: (partialResponse) => res.write(partialResponse.text),
+        onProgress: (partialResponse: ChatResponse) =>
+          res.write(partialResponse.text),
       });
     }
     res.write(JSON.stringify(data));
