@@ -4,6 +4,15 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import helmet from 'helmet';
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+globalThis.self = globalThis;
+import 'unfetch/polyfill';
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+// globalThis.fetch = fetch;
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
 
