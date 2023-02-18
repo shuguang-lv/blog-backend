@@ -48,7 +48,7 @@ export class AppService implements OnModuleInit {
       data = await this.chatgpt.sendMessage(message, {
         timeoutMs: 2 * 60 * 1000,
         onProgress: (partialResponse: ChatResponse) =>
-          res.write(partialResponse.text),
+          res.write(JSON.stringify(partialResponse)),
       });
     } else {
       data = await this.chatgpt.sendMessage(message, {
@@ -56,10 +56,9 @@ export class AppService implements OnModuleInit {
         parentMessageId,
         timeoutMs: 2 * 60 * 1000,
         onProgress: (partialResponse: ChatResponse) =>
-          res.write(partialResponse.text),
+          res.write(JSON.stringify(partialResponse)),
       });
     }
-    res.write(JSON.stringify(data));
     res.end();
   }
 }
