@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Query, Param, Res, Next } from '@nestjs/common';
+import { Controller, Get, Post, Body, Res, Next } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ApiTags } from '@nestjs/swagger';
 import { ChatGPTQuery } from './app.dto';
@@ -16,7 +16,7 @@ export class AppController {
 
   @Post('/openai')
   async sendMessage(
-    @Param() chatGPTQuery: ChatGPTQuery,
+    @Body() chatGPTQuery: ChatGPTQuery,
     @Res() res: Response,
     @Next() next: NextFunction,
   ) {
