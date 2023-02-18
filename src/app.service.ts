@@ -37,19 +37,21 @@ export class AppService implements OnModuleInit {
   async sendMessage(query: ChatGPTQuery, res: Response) {
     const { message, conversationId, parentMessageId } = query;
     this.logger.log(`Send Message ${message}`);
+    let data;
     if (!conversationId) {
-      await this.chatgpt.sendMessage(message, {
+      data = await this.chatgpt.sendMessage(message, {
         timeoutMs: 2 * 60 * 1000,
         onProgress: (partialResponse) => res.write(partialResponse.text),
       });
     } else {
-      await this.chatgpt.sendMessage(message, {
+      data = await this.chatgpt.sendMessage(message, {
         conversationId,
         parentMessageId,
         timeoutMs: 2 * 60 * 1000,
         onProgress: (partialResponse) => res.write(partialResponse.text),
       });
     }
+    res.write(JSON.stringify(data));
     res.end();
   }
 }
