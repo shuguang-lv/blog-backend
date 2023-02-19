@@ -15,24 +15,33 @@ export interface ChatResponse {
 
 @Injectable()
 export class AppService implements OnModuleInit {
+  notion: any;
   chatgpt: any;
   private readonly logger = new Logger(AppService.name);
 
   async onModuleInit() {
+    // notion
+    const { NotionAPI } = await importDynamic('notion-client');
+    try {
+      this.logger.log('Creating Notion');
+      this.notion = new NotionAPI();
+    } catch (error) {
+      console.log(error);
+    }
+
+    // chatGPT
     const openaiApiKey = process.env.OPENAI_API_KEY;
     if (!openaiApiKey) {
       throw new Error('OPENAI_API_KEY missing');
     }
-
     const { ChatGPTAPI } = await importDynamic('chatgpt');
-
     try {
       this.logger.log('Creating ChatCPT');
       this.chatgpt = new ChatGPTAPI({
         apiKey: openaiApiKey,
       });
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -40,7 +49,11 @@ export class AppService implements OnModuleInit {
     return 'Hello World!';
   }
 
-  async sendMessage(query: ChatGPTQuery, res: Response) {
+  async getNotionPage(pageId: string) {
+    return await this.notion.getPage(pageId);
+  }
+
+  async sendMessageToChatGPT(query: ChatGPTQuery, res: Response) {
     const { message, conversationId, parentMessageId } = query;
     this.logger.log(`Send Message ${message}`);
     let data: ChatResponse;
