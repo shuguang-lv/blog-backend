@@ -40,7 +40,7 @@ export class AppService implements OnModuleInit {
       this.logger.log('Creating ChatCPT');
       this.chatgpt = new ChatGPTUnofficialProxyAPI({
         accessToken: openaiApiKey,
-        apiReverseProxyUrl: 'https://chat.duti.tech/api/conversation',
+        // apiReverseProxyUrl: 'https://chat.duti.tech/api/conversation',
         // apiKey: openaiApiKey,
       });
     } catch (error) {
