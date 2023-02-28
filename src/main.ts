@@ -4,13 +4,21 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import helmet from 'helmet';
 
+export const importDynamic = new Function(
+  'modulePath',
+  'return import(modulePath)',
+);
+
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
-globalThis.self = globalThis;
-import 'unfetch/polyfill';
-globalThis.XMLHttpRequest = require('xhr2');
+// globalThis.self = globalThis;
+// import 'unfetch/polyfill';
+// globalThis.XMLHttpRequest = require('xhr2');
 
 async function bootstrap() {
+  const { default: fetch } = await importDynamic('node-fetch');
+  globalThis.fetch = fetch;
+
   const app = await NestFactory.create(AppModule, { cors: true });
 
   app.use(helmet());
