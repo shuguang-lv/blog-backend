@@ -40,7 +40,7 @@ export class AppService implements OnModuleInit {
       this.logger.log('Creating ChatCPT');
       this.chatgpt = new ChatGPTUnofficialProxyAPI({
         accessToken: openaiApiKey,
-        // apiReverseProxyUrl: 'https://chat.duti.tech/api/conversation',
+        apiReverseProxyUrl: 'https://chat.duti.tech/api/conversation',
         // apiKey: openaiApiKey,
       });
     } catch (error) {
@@ -63,8 +63,10 @@ export class AppService implements OnModuleInit {
     if (!conversationId) {
       data = await this.chatgpt.sendMessage(message, {
         timeoutMs: 2 * 60 * 1000,
-        onProgress: (partialResponse: ChatResponse) =>
-          res.write(JSON.stringify(partialResponse)),
+        onProgress: (partialResponse: ChatResponse) => {
+          res.write(JSON.stringify(partialResponse));
+          res.flushHeaders();
+        },
       });
     } else {
       data = await this.chatgpt.sendMessage(message, {
