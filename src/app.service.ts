@@ -35,13 +35,13 @@ export class AppService implements OnModuleInit {
       throw new Error('OPENAI_API_KEY missing');
     }
 
-    const { ChatGPTUnofficialProxyAPI } = await importDynamic('chatgpt');
+    const { ChatGPTAPI } = await importDynamic('chatgpt');
     try {
       this.logger.log('Creating ChatCPT');
-      this.chatgpt = new ChatGPTUnofficialProxyAPI({
-        accessToken: openaiApiKey,
-        apiReverseProxyUrl: 'https://chat.duti.tech/api/conversation',
-        // apiKey: openaiApiKey,
+      this.chatgpt = new ChatGPTAPI({
+        // accessToken: openaiApiKey,
+        // apiReverseProxyUrl: 'https://chat.duti.tech/api/conversation',
+        apiKey: openaiApiKey,
       });
     } catch (error) {
       console.log(error);

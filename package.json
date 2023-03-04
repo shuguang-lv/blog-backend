@@ -26,7 +26,7 @@
     "@nestjs/platform-express": "^9.3.9",
     "@nestjs/swagger": "^6.2.1",
     "@nestjs/throttler": "^4.0.0",
-    "chatgpt": "^4.7.2",
+    "chatgpt": "^5.0.6",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "helmet": "^6.0.1",
